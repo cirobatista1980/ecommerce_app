@@ -28,10 +28,10 @@ public class HttpPostAsyncTask extends AsyncTask<String, Void, Void> {
     @Override
     protected Void doInBackground(String... params) {
         try {
-            // This is getting the url from the string we passed in
+            // recebe a url que passamos
             URL url = new URL(params[0]);
 
-            // Create the urlConnection
+            // Cria a urlConnection
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
             urlConnection.setDoInput(true);
@@ -41,7 +41,7 @@ public class HttpPostAsyncTask extends AsyncTask<String, Void, Void> {
 
             urlConnection.setRequestMethod("POST");
 
-            // OPTIONAL - Sets an authorization header
+            // Opcional se tiver autenticação no header
             //urlConnection.setRequestProperty("Authorization", "someAuthString");
 
             // Send the post body
@@ -58,12 +58,10 @@ public class HttpPostAsyncTask extends AsyncTask<String, Void, Void> {
                 InputStream inputStream = new BufferedInputStream(urlConnection.getInputStream());
 
                 String response = convertInputStreamToString(inputStream);
+                // Deserializar JSON
 
-                // From here you can convert the string to JSON with whatever JSON parser you like to use
-                // After converting the string to JSON, I call my custom callback. You can follow this process too, or you can implement the onPostExecute(Result) method
             } else {
-                // Status code is not 200
-                // Do something to handle the error
+                // se não for status code 200, fazer tratativa
             }
 
         } catch (Exception e) {
